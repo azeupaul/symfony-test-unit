@@ -7,10 +7,14 @@ use PHPUnit\Framework\TestCase;
 
 class ProductTest extends TestCase
 {
-    public function testComputeTVAFoodProduct()
+    /**
+     * 
+     * @dataProvider pricesForFoodProduct
+     */
+    public function testComputeTVAFoodProduct($price, $expectedTva)
     {
-        $product = new Product('Pomme', 'food', 1);
-        $this->assertSame(0.055, $product->computeTVA());
+        $product = new Product('Pomme', 'food', $price);
+        $this->assertSame($expectedTva, $product->computeTVA());
     }
 
     public function testComputeTVAOtherProduct()
@@ -24,5 +28,14 @@ class ProductTest extends TestCase
         $product = new Product('Fraise', 'fruits', -10);
         $this->expectException(Exception::class);
         $product->computeTVA();
+    }
+
+    public function pricesForFoodProduct()
+    {
+        return [
+            [0, 0.0],
+            [20, 1.1],
+            [100, 5.5]
+        ];
     }
 }
