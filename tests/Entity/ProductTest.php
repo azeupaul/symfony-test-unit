@@ -2,6 +2,7 @@
 namespace App\Tests\Entity;
 
 use App\Entity\Product;
+use Exception;
 use PHPUnit\Framework\TestCase;
 
 class ProductTest extends TestCase
@@ -16,5 +17,12 @@ class ProductTest extends TestCase
     {
         $product = new Product('Mangue', 'fruits', 20);
         $this->assertSame(3.92, $product->computeTVA());
+    }
+
+    public function testComputeTVAWithNegativePrice()
+    {
+        $product = new Product('Fraise', 'fruits', -10);
+        $this->expectException(Exception::class);
+        $product->computeTVA();
     }
 }
