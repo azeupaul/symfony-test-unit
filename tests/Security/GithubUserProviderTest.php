@@ -19,9 +19,8 @@ class GithubUserProviderTest extends TestCase
 
     public function setUp(): void
     {
-            $this->client = $this->getMockBuilder('GuzzleHttp\Client')
+        $this->client = $this->getMockBuilder('GuzzleHttp\Client')
             ->disableOriginalConstructor()
-            ->setMethods(['get'])
             ->getMock();
         $this->serializer = $this
             ->getMockBuilder('JMS\Serializer\SerializerInterface')
