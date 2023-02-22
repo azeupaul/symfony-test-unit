@@ -1,8 +1,9 @@
 <?php
-namespace App\Entity;
-use Symfony\Component\Config\Definition\Exception\Exception;
 
-class Product{
+namespace App\Entity;
+
+class Product
+{
     const FOOD_PRODUCT = 'food';
     private $name;
     private $type;
@@ -14,7 +15,8 @@ class Product{
         $this->type = $type;
         $this->price = $price;
     }
-    public function computeTVA(): float | Exception
+
+    public function computeTVA(): float | \Exception
     {
         if($this->price < 0) {
             throw new \Exception('The price cannot be negative');
@@ -23,6 +25,7 @@ class Product{
         if (self::FOOD_PRODUCT == $this->type) {
             return $this->price * 0.055;
         }
+
         return $this->price * 0.196;
     }
 }
